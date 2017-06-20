@@ -5,21 +5,22 @@ import argparse
 import boto
 from boto.s3.key import Key
 
+def main():
 #print(sys.argv)
-key_name_match = sys.argv[1]
-value_number_match = sys.argv[2]
-file_name = sys.argv[3]
-path_on_local = sys.argv[4]
+ key_name_match = sys.argv[1]
+ value_number_match = sys.argv[2]
+ file_name = sys.argv[3]
+ path_on_local = sys.argv[4]
 
-s3=boto.connect_s3()
-bucketlist=s3.get_all_buckets()
+ s3=boto.connect_s3()
+ bucketlist=s3.get_all_buckets()
 
-bucketname_of_mine='yinchieh-assignment4'
-bucket=s3.get_bucket(bucketname_of_mine)
+ bucketname_of_mine='yinchieh-assignment4'
+ bucket=s3.get_bucket(bucketname_of_mine)
 
 #print bucket
 
-for key in bucket.list():
+ for key in bucket.list():
     name_to_check = str(key.name)
     name_to_check_user = str(key_name_match)
     password_to_check = key.get_contents_as_string()
@@ -47,3 +48,8 @@ for key in bucket.list():
     else:
         print 'username and password do not match database'
         sys.exit()
+
+if __name__ == '__main__':
+ main()
+
+
